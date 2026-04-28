@@ -69,3 +69,6 @@ docker logs hng-detector
 
 ## Blog Post
 [Coming soon - will be added before submission]
+
+## Blog Post
+https://medium.com/@victoroluwaseyi2018/how-i-built-a-real-time-ddos-detection-engine-from-scratch-b071bd746514
