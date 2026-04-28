@@ -4,11 +4,11 @@ sliding_window_seconds: 60
 # Baseline settings
 baseline_window_minutes: 30
 baseline_recalculation_interval: 60
-min_baseline_samples: 10
+min_baseline_samples: 3
 
 # Detection thresholds
-zscore_threshold: 3.0
-rate_multiplier_threshold: 5.0
+zscore_threshold: 2.0
+rate_multiplier_threshold: 3.0
 error_rate_multiplier: 3.0
 
 # Ban backoff schedule (in seconds)
