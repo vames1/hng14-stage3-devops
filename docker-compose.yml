@@ -1,0 +1,41 @@
+version: '3.8'
+
+volumes:
+  HNG-nginx-logs:    # Named volume shared between Nginx and detector
+  nextcloud-data:    # Nextcloud data storage
+
+services:
+
+  # Service 1: Nginx - the front door reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: hng-nginx
+    ports:
+      - "80:80"      # Expose port 80 to the internet
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro   # Mount our config
+      - HNG-nginx-logs:/var/log/nginx                 # Share logs volume
+    depends_on:
+      - nextcloud
+    restart: unless-stopped
+
+  # Service 2: Nextcloud - the actual storage app (don't modify!)
+  nextcloud:
+    image: kefaslungu/hng-nextcloud
+    container_name: hng-nextcloud
+    volumes:
+      - nextcloud-data:/var/www/html
+      - HNG-nginx-logs:/var/log/nginx:ro   # Read-only access to logs
+    restart: unless-stopped
+
+  # Service 3: Detector - your security daemon
+  detector:
+    build: ./detector
+    container_name: hng-detector
+    volumes:
+      - HNG-nginx-logs:/var/log/nginx:ro   # Read-only access to logs
+    depends_on:
+      - nginx
+    restart: unless-stopped
+    ports:
+      - "8080:8080"  # Dashboard port

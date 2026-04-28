@@ -1,0 +1,32 @@
+# Sliding window settings
+sliding_window_seconds: 60
+
+# Baseline settings
+baseline_window_minutes: 30
+baseline_recalculation_interval: 60
+min_baseline_samples: 10
+
+# Detection thresholds
+zscore_threshold: 3.0
+rate_multiplier_threshold: 5.0
+error_rate_multiplier: 3.0
+
+# Ban backoff schedule (in seconds)
+ban_schedule:
+  - 600      # 10 minutes
+  - 1800     # 30 minutes
+  - 7200     # 2 hours
+  - -1       # permanent
+
+# Slack configuration
+slack:
+  webhook_url: "YOUR_SLACK_WEBHOOK_URL_HERE"
+
+# Dashboard settings
+dashboard:
+  port: 8080
+  refresh_interval: 3
+
+# Log paths
+log_path: /var/log/nginx/hng-access.log
+audit_log_path: /var/log/detector/audit.log
